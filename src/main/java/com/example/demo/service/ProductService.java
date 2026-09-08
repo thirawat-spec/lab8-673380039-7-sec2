@@ -31,8 +31,12 @@ public class ProductService {
                     default:
                         context.setStrategy(new NoDiscountStrategy());
                 }
-                double discountedPrice = context.executeDiscount(p.getPrice());
-                p.setPrice(discountedPrice);
+                
+                double calculatedDiscount = context.executeDiscount(p.getPrice());
+                
+                p.setDiscountedPrice(calculatedDiscount);
+            } else {
+                p.setDiscountedPrice(p.getPrice());
             }
         }
         return products;

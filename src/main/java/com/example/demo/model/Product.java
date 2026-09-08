@@ -19,6 +19,9 @@ public class Product {
     private Double price;
     private String discountType;
 
+    @Transient
+    private Double discountedPrice;
+
     // 1:1 Relationship - เก็บ Foreign Key detail_id ไว้ที่ตารางนี้
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "detail_id", referencedColumnName = "id")
@@ -27,6 +30,14 @@ public class Product {
     // 1:N Relationship - 1 สินค้า มีหลายรีวิว
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
+
+    public Double getDiscountedPrice() {
+        return discountedPrice != null ? discountedPrice : price;
+    }
+
+    public void setDiscountedPrice(Double discountedPrice) {
+        this.discountedPrice = discountedPrice;
+    }
 
     public Long getId() {
         return id;
